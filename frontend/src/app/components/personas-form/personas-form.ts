@@ -1,16 +1,15 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { PersonaService } from '@services/persona';
-import { RouterLink, ActivatedRoute } from "@angular/router";
+import { RouterLink, ActivatedRoute, Router } from "@angular/router";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { CITIZENSHIP_VALUES, type Grupo_Sangre, GRUPOS_SANGRE_VALUES, type Tipo_Documento, TIPO_DOCUMENTO_VALUES } from "@dtypes/common";
 import { type Citizenship, type Gender, GENDER_VALUES, type Persona } from "@dtypes/common";
-import { setThrowInvalidWriteToSignalError } from '@angular/core/primitives/signals';
 
 @Component({
   selector: 'app-personas-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './personas-form.html',
   styleUrl: './personas-form.css',
 })
@@ -18,6 +17,7 @@ export class PersonasForm implements OnInit
 {
   private personaService = inject(PersonaService);
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
 
   persona = signal<Persona | null>(null);
   form = new FormGroup({
@@ -140,8 +140,9 @@ export class PersonasForm implements OnInit
         });
 
       },
-      error: (error) => {
+      error: (error) =>{
         console.error('Error al obtener persona:', error);
+        this.router.navigate(['/personas']);
       }
     });
   }
@@ -155,15 +156,19 @@ export class PersonasForm implements OnInit
           console.log('Paciente actualizada: ', persona);
         },
         error: (error) => {
-          console.log('Error al crear paciente: ', error);
+          console.log('Error al actualizar paciente: ', error);
         }
       });
     }
     else
     {
       this.personaService.crearPersona(data).subscribe({
-        next: (persona) => {
-          console.log('Persona creada: ', persona);
+        next: (persona_result) => {
+          if(persona_result.result)
+          {
+            console.log('Persona creada: ', persona_result);
+            this.persona.set(persona_result.data);
+          }
         },
         error: (error) => {
           console.log('Error al crear persona: ', error);

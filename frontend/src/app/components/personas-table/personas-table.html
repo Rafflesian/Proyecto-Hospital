@@ -5,7 +5,7 @@
     </button>
 </div>
 
-<div class = "overflow-x-auto p-2">
+<div class="overflow-x-auto p-2">
     
     <table class="w-full text-sm text-left">
         
@@ -31,8 +31,10 @@
                     <td>{{persona.nro_documento}} ({{persona.tipo_documento}})</td>
                     <td>{{persona.nombres}} {{persona.apellido_paterno}} {{persona.apellido_materno}}</td>
                     <td>{{persona.email ?? 'Sin definir'}}</td>
-                    <td>
-                        <button class="bg-yellow-500 hover:bg-yellow-600 rounded p-2">Generar Informe</button>
+                    <td class="space-x-4">
+                        <button [routerLink]="['/personas', persona.id]" class="bg-green-500 hover:bg-green-600 rounded p-2">Editar Paciente</button>
+                        <button [routerLink]="['/personas/informe/nuevo', persona.id]" class="bg-yellow-500 hover:bg-yellow-600 rounded p-2">Generar Informe</button>
+                        <button [routerLink]="['/personas/informe/', persona.id]" class="bg-yellow-500 hover:bg-yellow-600 rounded p-2">Ver Informes</button>
                     </td>
 
                 </tr>

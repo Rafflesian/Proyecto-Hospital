@@ -12,7 +12,11 @@ class Informe extends Model
     protected $returnType       = \App\Entities\Informe::class;
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = [
+        'id_paciente', 'id_emisor',
+        'title', 'motivo', 'hallazgos', 'diagnosis',
+        'tratamiento', 'recomendaciones', 'observaciones', 'status'
+    ];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

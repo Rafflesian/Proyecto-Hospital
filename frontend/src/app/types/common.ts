@@ -38,6 +38,20 @@ export const CITIZENSHIP = {
 export type Citizenship = typeof CITIZENSHIP[keyof typeof CITIZENSHIP];
 export const CITIZENSHIP_VALUES = Object.values(CITIZENSHIP);
 
+export const CASE_STATUS = {
+    CASE_STATUS_IN_PROGRESS: 'En Proceso',
+    CASE_STATUS_FINISHED: 'Finalizado',
+    CASE_STATUS_CANCELLED: 'Cancelado'
+} as const;
+export type Case_Status = typeof CASE_STATUS[keyof typeof CASE_STATUS];
+export const CASE_STATUS_VALUES = Object.values(CASE_STATUS);
+
+export type ResultPut<T> = 
+{
+    result: boolean,
+    data: T;
+}
+
 export type Persona = 
 {
     id?: number;
@@ -53,3 +67,21 @@ export type Persona =
     sexo: Gender;
     g_sangre: Grupo_Sangre;
 }
+
+export type Result_Persona = ResultPut<Persona>;
+
+export type Informe = 
+{
+    id?: number;
+    id_paciente: number;
+    id_emisor: number;
+    title: string;
+    motivo: string;
+    hallazgos: string;
+    diagnosis: string;
+    tratamiento: string;
+    recomendaciones: string;
+    observaciones: string;
+    status: Case_Status;
+}
+export type Result_Informe = ResultPut<Informe>;

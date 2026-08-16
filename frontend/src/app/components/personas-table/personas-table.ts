@@ -17,8 +17,6 @@ export class PersonasTable implements OnInit
 
   ngOnInit(): void {
     this.load();
-
-    console.log("loaded");
   }
 
   private load(): void
@@ -26,7 +24,6 @@ export class PersonasTable implements OnInit
     this.personaService.getPersonas().subscribe({
       next: (response_personas) => {
         this.personas.set(response_personas);
-        console.log(response_personas);
       },
       error: (error) => {
         console.error('Error al obtener personas: ', error);

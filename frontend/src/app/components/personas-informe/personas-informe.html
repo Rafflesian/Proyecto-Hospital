@@ -1,0 +1,88 @@
+<div class="overflow-x-auto h-full bg-gray-400">
+
+    <div class="flex justify-center">
+        @if(persona_id !== null)
+        {
+            Informe para {{persona()?.nombres}}
+        }
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="send_informe()" class="m-auto py-8 w-6xl">
+
+        <div class="flex grid-flow-col justify-between p-2">
+
+            <div class="flex flex-col">
+                <label for="form_informe_title">Título*</label>
+                <textarea rows="4" formControlName="title" class="rounded border-1 border-slate-900" id="form_informe_title" placeholder="Diagnostico"></textarea>
+            </div>
+
+            <div class="flex flex-col">
+                <label for="form_informe_motive">Motivo*</label>
+                <textarea rows="4" formControlName="motivo" class="rounded border-1 border-slate-900" id="form_informe_motive"></textarea>
+            </div>
+
+            <div class="flex flex-col">
+                <label for="form_informe_findings">Hallazgos*</label>
+                <textarea rows="4" formControlName="hallazgos" class="rounded border-1 border-slate-900" id="form_informe_findings"></textarea>
+            </div>
+
+        </div>
+
+        <div class="flex grid-flow-col justify-between p-2">
+
+            <div class="flex flex-col">
+                <label for="form_informe_diag">Diagnosis*</label>
+                <textarea rows="4" formControlName="diagnosis" class="rounded border-1 border-slate-900" id="form_informe_diag"></textarea>
+            </div>
+
+            <div class="flex flex-col">
+                <label for="form_informe_treatment">Tratamiento*</label>
+                <textarea rows="4" formControlName="tratamiento" class="rounded border-1 border-slate-900" id="form_informe_treatment"></textarea>
+            </div>
+
+            <div class="flex flex-col">
+                <label for="form_informe_rec">Recomendaciones*</label>
+                <textarea rows="4" formControlName="recomendaciones" class="rounded border-1 border-slate-900" id="form_informe_rec"></textarea>
+            </div>
+
+        </div>
+
+        <div class="flex grid-flow-col justify-around space-x-8 p-2">
+
+            <div class="flex flex-col">
+                <label for="form_informe_obs">Observaciones*</label>
+                <textarea rows="4" formControlName="observaciones" class="rounded border-1 border-slate-900" id="form_informe_obs"></textarea>
+            </div>
+            
+            <div class="flex flex-col">
+                
+                <label for="form_user_status">Estado</label>
+                <select formControlName="status" id="form_user_status">
+                    @for(status of process_status(); track status)
+                    {
+                        <option [value]="status">{{status}}</option>
+                    }
+                </select>
+
+            </div>
+
+        </div>
+
+        <div class="flex justify-center space-x-8">
+            
+            @if(persona_id() != null)
+            {
+                <button [routerLink]="['/personas/informe', persona_id()]" type="button" class="bg-gray-600 hover:bg-gray-500 rounded p-2">
+                    Volver a informes del paciente
+                </button>
+            }
+
+            <button [disabled]="form.invalid" type="submit" class="rounded bg-green-500 hover:bg-green-600 disabled:disabled disabled:bg-green-700 p-2">
+                {{informe_id() != null ? 'Editar Informe' : 'Crear Informe'}}
+            </button>
+
+        </div>
+
+    </form>
+
+</div>

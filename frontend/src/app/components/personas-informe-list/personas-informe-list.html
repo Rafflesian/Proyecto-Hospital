@@ -1,0 +1,53 @@
+<div class="h-full bg-gray-400">
+
+    <div class="m-auto w-full p-2 space-y-4">
+
+        <table class="w-full table-auto">
+    
+            <thead>
+    
+                <tr>
+                    <th>#</th>
+                    <th>Titulo</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+    
+            </thead>
+    
+            <tbody class="text-center space-y-4">
+    
+                @for(informe of informe_list(); track informe.id)
+                {
+                    <tr>
+                        <td>{{informe.id}}</td>
+                        <td>{{informe.title}}</td>
+                        <td>{{informe.status}}</td>
+                        <td>
+                            <button [routerLink]="['/personas/informe/ver/', informe.id]" type="button" class="bg-green-500 hover:bg-green-600 rounded p-2">
+                                Editar Informe
+                            </button>
+                        </td>
+                    </tr>
+                }
+                @empty 
+                {
+                    <tr>
+                        <td colspan="2">No hay informes para este paciente</td>
+                    </tr>
+                }
+    
+            </tbody>
+    
+        </table>
+
+        <div class="flex justify-center">
+            
+            <button [routerLink]="['/personas']" type="button" class="bg-gray-600 hover:bg-gray-500 rounded p-2">
+                Volver a pacientes
+            </button>
+
+        </div>
+    </div>
+
+</div>

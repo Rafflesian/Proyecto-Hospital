@@ -35,7 +35,6 @@ class CPersona extends ResourceController
     public function get_personas()
     {
         $personas = $this->pPersona->findAll();
-
         return $this->respond($personas, 201);
     }
 
@@ -48,8 +47,6 @@ class CPersona extends ResourceController
         try
         {
             $db->transBegin();
-
-            // Persona
             $this->ePersona = $this->ePersona->clean($this->request->getMethod(), $data, $error);
 
             if($this->ePersona == null)
@@ -59,15 +56,60 @@ class CPersona extends ResourceController
             $persona_id = $this->pPersona->getInsertID();
 
             if($db->transStatus() === FALSE)
+            {
+                $error = $db->error()['message'];   
                 throw new Exception('Error en la transacción ('. $error . ')');
+            }
 
             $db->transCommit();
 
             return $this->respond([
                 'success' => true,
                 'data' => [
-                    'id' => $persona_id,
+                    $this->pPersona,
                 ]
+            ], 201);
+        }
+        catch(\Throwable $e)
+        {
+            $db->transRollback();
+
+            return $this->respond([
+                'success' => false,
+                'message' => $error != '' ? $error : 'Error en proceso de ingreso, intenta más tarde',
+                'data_sent' => $data,
+                'debug_object' => $this->ePersona,
+                'debug_message' => $e->getMessage(),
+                'debug_sql' => $this->pPersona->db->error(),
+                'model_errors' => $this->pPersona->errors()
+            ], 500);
+        }
+    }
+
+    public function update_persona()
+    {
+        $data = $this->request->getJSON(true);
+        $error = "";
+        $db = \Config\Database::connect();
+
+        try
+        {
+            $db->transBegin();
+            $persona_id = $data['id'];
+            
+            // Persona
+            $this->ePersona = $this->ePersona->clean($this->request->getMethod(), $data, $error);
+
+            if($this->ePersona == null)
+                throw new \Exception('Error al procesar datos ('. $error . ')');
+
+            if(!$this->pPersona->update($persona_id, $this->ePersona))
+                throw new \Exception('Error al actualizar persona');
+
+            $db->transCommit();
+
+            return $this->respond([
+                'success' => true
             ], 201);
         }
         catch(\Throwable $e)

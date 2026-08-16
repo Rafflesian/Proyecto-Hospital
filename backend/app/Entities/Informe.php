@@ -4,7 +4,7 @@ namespace App\Entities;
 
 use CodeIgniter\Entity\Entity;
 
-use App\Enums\IdentifierTypes;
+use App\Enums\StatusTypes;
 
 class Informe extends Entity
 {
@@ -126,7 +126,7 @@ class Informe extends Entity
             return null;
         }
 
-        if(IdentifierTypes::tryFrom($input['status']) == null)
+        if(StatusTypes::tryFrom($input['status']) == null)
         {
             $error = sprintf('El estado del informe \'%s\' es inválido', $input['status']);
             return null;

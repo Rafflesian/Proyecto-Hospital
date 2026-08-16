@@ -99,11 +99,18 @@
 
         </div>
 
-        <div class="flex justify-center">
+        <div class="flex justify-center space-x-8">
+
+            <button [routerLink]="['/personas']" type="button" class="rounded bg-gray-400 hover:bg-gray-600 p-2">
+                Volver a los registros
+            </button>
+
             <button [disabled]="form.invalid" type="submit" class="rounded bg-green-500 hover:bg-green-600 disabled:disabled disabled:bg-green-700 p-2">
                 {{persona_id() != null ? 'Guardar Paciente' : 'Crear Paciente'}}
             </button>
+
         </div>
+        
     </form>
 
 </div>
