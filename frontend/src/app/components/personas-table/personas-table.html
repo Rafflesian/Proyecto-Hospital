@@ -1,0 +1,43 @@
+<div class = "overflow-x-auto p-2">
+    
+    <table class="w-full text-sm text-left">
+        
+        <thead>
+
+            <tr>
+                <th>ID</th>
+                <th>N° Documento</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Acciones</th>
+            </tr>
+
+        </thead>    
+
+        <tbody>
+            
+            @for(persona of personas(); track persona.id)
+            {
+                <tr>
+                    
+                    <td>{{persona.id}}</td>
+                    <td>{{persona.nro_documento}} ({{persona.tipo_documento}})</td>
+                    <td>{{persona.nombre}} {{persona.apellido_paterno}} {{persona.apellido_materno}}</td>
+                    <td>{{persona.email ?? 'Sin definir'}}</td>
+                    <td>
+                        <button class="bg-green-500 rounded p-2">Generar Informe</button>
+                    </td>
+
+                </tr>
+            }
+            @empty
+            {
+                <tr>
+                    <td colspan="4">No hay personas registradas</td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+</div>

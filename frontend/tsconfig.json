@@ -19,7 +19,8 @@
       "@app/*": ["src/app/*"],
       "@components/*": ["src/app/components/*"],
       "@layout/*": ["src/app/layout/*"],
-      "@types/*": ["src/app/types/*"]
+      "@dtypes/*": ["src/app/types/*"],
+      "@services/*": ["src/app/services/*"],
     },
     "ignoreDeprecations": "6.0"
   },
