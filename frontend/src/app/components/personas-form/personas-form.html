@@ -1,46 +1,76 @@
 <div class="overflow-x-auto h-full bg-gray-400">
 
-    <div class="m-auto py-8 w-6xl">
-
+    <form [formGroup]="form" (ngSubmit)="send_form()" class="m-auto py-8 w-6xl">
+        
         <div class="grid grid-flow-col justify-between p-2">
         
             <div class="flex flex-col">
-                <label for="form_user_name">Nombres</label>
-                <input id="form_user_name" type="text" placeholder="Julio Alonso">
+                <label for="form_user_name">Nombres*</label>
+                <input formControlName="nombres" class="rounded border-1 border-slate-900" id="form_user_name" type="text" placeholder="Julio Alonso">
             </div>
 
             <div class="flex flex-col">
-                <label for="form_user_apellido_p">Apellido Paterno</label>
-                <input id="form_user_apellido_p" type="text" placeholder="Jimenez">
+                <label for="form_user_apellido_p">Apellido Paterno*</label>
+                <input formControlName="apellido_paterno" class="rounded border-1 border-slate-900" id="form_user_apellido_p" type="text" placeholder="Jimenez">
             </div>
 
             <div class="flex flex-col">
-                <label for="form_user_apellido_p">Apellido Materno</label>
-                <input id="form_user_apellido_p" type="text" placeholder="Olivera">
+                <label for="form_user_apellido_p">Apellido Materno*</label>
+                <input formControlName="apellido_materno" class="rounded border-1 border-slate-900" id="form_user_apellido_p" type="text" placeholder="Olivera">
             </div>
 
+        </div>
+
+        <div class="flex grid-flow-col justify-between p-2">
+            
+            <div class="flex flex-col">
+                <label for="form_user_email">E-Mail (opcional)</label>
+                <input formControlName="email" class="rounded border-1 border-slate-900" id="form_user_email" type="email" placeholder="E-Mail">
+                @if (form.controls.email.invalid && form.controls.email.touched)
+                {
+                    <span class="text-red-500">
+                        Ingresa un correo válido.
+                    </span>
+                }
+            </div>
+
+            <div class="flex flex-col">
+                <label for="form_user_phone">Teléfono/Celular*</label>
+                <input formControlName="telefono" class="rounded border-1 border-slate-900" id="form_user_phone" type="text" placeholder="Teléfono">
+            </div>
+
+            <div class="flex flex-col">
+                <label for="form_user_dir">Dirección</label>
+                <input formControlName="direccion" class="rounded border-1 border-slate-900" id="form_user_dir" type="text" placeholder="Avenida 2">
+            </div>
+            
         </div>
 
         <div class="grid grid-flow-col justify-between p-2">
 
             <div class="flex flex-col">
-                <label for="form_user_doc_type">Tipo Documento</label>
-                <select id="form_user_doc_type">
-                    @for(doc of tipo_documento(); track doc)
+                <label for="form_user_gender">Sexo</label>
+                <select formControlName="sexo" id="form_user_gender">
+                    @for(gender of gender(); track gender)
                     {
-                        <option [value]="doc">{{doc}}</option>
+                        <option [value]="gender">{{gender}}</option>
                     }
                 </select>
             </div>
 
             <div class="flex flex-col">
-                <label for="form_user_doc">N° Documento</label>
-                <input id="form_user_doc" type="text" placeholder="123456789-0">
+                <label for="form_user_ctz">Nacionalidad</label>
+                <select formControlName="nacionalidad" id="form_user_ctz">
+                    @for(citizenship of citizenship(); track citizenship)
+                    {
+                        <option [value]="citizenship">{{citizenship}}</option>
+                    }
+                </select>
             </div>
 
             <div class="flex flex-col">
                 <label for="form_user_bloodtype">Grupo de Sangre</label>
-                <select id="form_user_bloodtype">
+                <select formControlName="g_sangre" id="form_user_bloodtype">
                     @for(grupo of grupo_sangre(); track grupo)
                     {
                         <option [value]="grupo">{{grupo}}</option>
@@ -50,6 +80,30 @@
 
         </div>
 
-    </div>
+        <div class="grid grid-flow-col justify-between p-2">
+            
+            <div class="flex flex-col">
+                <label for="form_user_doc_type">Tipo Documento</label>
+                <select formControlName="tipo_documento" id="form_user_doc_type">
+                    @for(doc of tipo_documento(); track doc)
+                    {
+                        <option [value]="doc">{{doc}}</option>
+                    }
+                </select>
+            </div>
+
+            <div class="flex flex-col">
+                <label for="form_user_doc">N° Documento</label>
+                <input formControlName="nro_documento" class="rounded border-1 border-slate-900" id="form_user_doc" type="text" placeholder="123456789-0">
+            </div>
+
+        </div>
+
+        <div class="flex justify-center">
+            <button [disabled]="form.invalid" type="submit" class="rounded bg-green-500 hover:bg-green-600 disabled:disabled disabled:bg-green-700 p-2">
+                {{persona_id() != null ? 'Guardar Paciente' : 'Crear Paciente'}}
+            </button>
+        </div>
+    </form>
 
 </div>

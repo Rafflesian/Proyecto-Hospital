@@ -2,17 +2,21 @@
 
 namespace App\Controllers;
 
-use App\Models\Persona;
+use App\Models\Persona as PersonaModel;
+use App\Entities\Persona as PersonaEntity;
+
 use CodeIgniter\RESTful\ResourceController;
 use Exception;
 
 class CPersona extends ResourceController
 {
-    protected Persona $pPersona;
+    protected PersonaModel $pPersona;
+    protected PersonaEntity $ePersona;
 
     public function __construct()
     {
-        $this->pPersona = new Persona();
+        $this->pPersona = new PersonaModel();
+        $this->ePersona = new PersonaEntity();
     }
 
     public function get_persona(int $id)
@@ -46,16 +50,16 @@ class CPersona extends ResourceController
             $db->transBegin();
 
             // Persona
-            $this->pPersona = $this->pPersona->clean($this->request->getMethod(), $data['persona'], $error);
+            $this->ePersona = $this->ePersona->clean($this->request->getMethod(), $data, $error);
 
-            if($this->pPersona == null)
-                throw new \Exception($error);
+            if($this->ePersona == null)
+                throw new \Exception('Error al procesar datos ('. $error . ')');
             
-            $this->pPersona->insert($this->pPersona->attributes);
-            $persona_id = $this->pPersona->insert_id();
+            $this->pPersona->insert($this->ePersona);
+            $persona_id = $this->pPersona->getInsertID();
 
             if($db->transStatus() === FALSE)
-                throw new Exception('Error en la transacción');
+                throw new Exception('Error en la transacción ('. $error . ')');
 
             $db->transCommit();
 
@@ -72,8 +76,12 @@ class CPersona extends ResourceController
 
             return $this->respond([
                 'success' => false,
-                'message' => $error ?? 'Error en datos de ingreso, intenta más tarde',
-                'debug_message' => $e->getMessage()
+                'message' => $error != '' ? $error : 'Error en proceso de ingreso, intenta más tarde',
+                'data_sent' => $data,
+                'debug_object' => $this->ePersona,
+                'debug_message' => $e->getMessage(),
+                'debug_sql' => $this->pPersona->db->error(),
+                'model_errors' => $this->pPersona->errors()
             ], 500);
         }
     }

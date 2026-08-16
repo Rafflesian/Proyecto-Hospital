@@ -32,15 +32,13 @@ class StartPersona extends Migration
             'email' => [
                 'type'              => 'VARCHAR',
                 'constraint'        => '128',
-                'null'              => true,
-                'unique'            => true,
+                'null'              => true
             ],
             'telefono' => [
                 'type' => 'VARCHAR',
-                'constraint' => '32',
-                'null'=> true,
+                'constraint' => '32'
             ],
-            'nombre' => [
+            'nombres' => [
                 'type'              => 'VARCHAR',
                 'constraint'        => '64',
             ],
@@ -75,6 +73,8 @@ class StartPersona extends Migration
 
         $this->forge->addPrimaryKey('id');
         $this->forge->addUniqueKey(['tipo_documento', 'nro_documento']);
+        $this->forge->addKey('email');
+        $this->forge->addKey('telefono');
 
         $this->forge->createTable('personas', true);
     }

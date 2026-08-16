@@ -23,8 +23,20 @@ export const TIPO_DOCUMENTO = {
 export type Tipo_Documento = typeof TIPO_DOCUMENTO[keyof typeof TIPO_DOCUMENTO];
 export const TIPO_DOCUMENTO_VALUES = Object.values(TIPO_DOCUMENTO);
 
-export type Gender = 'Masculino' | 'Femenino' | 'Otro';
-export type Citizenship = 'Chileno' | 'Otro';
+export const GENDER = {
+    GENDER_MALE: 'Masculino',
+    GENDER_FEMALE: 'Femenino',
+    GENDER_OTHER: 'Otro'
+} as const;
+export type Gender = typeof GENDER[keyof typeof GENDER];
+export const GENDER_VALUES = Object.values(GENDER);
+
+export const CITIZENSHIP = {
+    CTZ_LOCAL: 'Chileno',
+    CTZ_OTHER: 'Otro'
+} as const;
+export type Citizenship = typeof CITIZENSHIP[keyof typeof CITIZENSHIP];
+export const CITIZENSHIP_VALUES = Object.values(CITIZENSHIP);
 
 export type Persona = 
 {
@@ -33,7 +45,7 @@ export type Persona =
     nro_documento: string;
     email?: string;
     telefono?: string;
-    nombre: string;
+    nombres: string;
     apellido_paterno: string;
     apellido_materno: string;
     direccion: string;

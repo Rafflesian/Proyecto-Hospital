@@ -13,7 +13,8 @@ class Persona extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'rut', 'nombre', 'apellido_paterno', 'apellido_materno', 
+        'nombres', 'apellido_paterno', 'apellido_materno',
+        'tipo_documento', 'nro_documento',
         'email', 'telefono', 'sexo', 'nacionalidad', 'direccion', 'g_sangre'
     ];
 

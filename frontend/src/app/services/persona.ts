@@ -21,4 +21,14 @@ export class PersonaService {
   getPersona(id: number): Observable<Persona> {
     return this.http.get<Persona>(`${this.API_URL}/${id}`);
   }
+
+  crearPersona(data: Persona): Observable<Persona>
+  {
+    return this.http.put<Persona>(`${this.API_URL}`, data);
+  }
+
+  updatePersona(data: Persona): Observable<Persona>
+  {
+    return this.http.patch<Persona>(`${this.API_URL}`, data);
+  }
 }
