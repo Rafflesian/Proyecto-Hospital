@@ -1,3 +1,10 @@
+
+<div class="overflow-x-auto m-auto p-5">
+    <button [routerLink]="['/personas/nuevo']" class="bg-green-500 hover:bg-green-600 p-2 rounded">
+        Registrar Persona
+    </button>
+</div>
+
 <div class = "overflow-x-auto p-2">
     
     <table class="w-full text-sm text-left">
@@ -25,7 +32,7 @@
                     <td>{{persona.nombre}} {{persona.apellido_paterno}} {{persona.apellido_materno}}</td>
                     <td>{{persona.email ?? 'Sin definir'}}</td>
                     <td>
-                        <button class="bg-green-500 rounded p-2">Generar Informe</button>
+                        <button class="bg-yellow-500 hover:bg-yellow-600 rounded p-2">Generar Informe</button>
                     </td>
 
                 </tr>

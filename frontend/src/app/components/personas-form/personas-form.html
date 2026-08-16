@@ -1,0 +1,55 @@
+<div class="overflow-x-auto h-full bg-gray-400">
+
+    <div class="m-auto py-8 w-6xl">
+
+        <div class="grid grid-flow-col justify-between p-2">
+        
+            <div class="flex flex-col">
+                <label for="form_user_name">Nombres</label>
+                <input id="form_user_name" type="text" placeholder="Julio Alonso">
+            </div>
+
+            <div class="flex flex-col">
+                <label for="form_user_apellido_p">Apellido Paterno</label>
+                <input id="form_user_apellido_p" type="text" placeholder="Jimenez">
+            </div>
+
+            <div class="flex flex-col">
+                <label for="form_user_apellido_p">Apellido Materno</label>
+                <input id="form_user_apellido_p" type="text" placeholder="Olivera">
+            </div>
+
+        </div>
+
+        <div class="grid grid-flow-col justify-between p-2">
+
+            <div class="flex flex-col">
+                <label for="form_user_doc_type">Tipo Documento</label>
+                <select id="form_user_doc_type">
+                    @for(doc of tipo_documento(); track doc)
+                    {
+                        <option [value]="doc">{{doc}}</option>
+                    }
+                </select>
+            </div>
+
+            <div class="flex flex-col">
+                <label for="form_user_doc">N° Documento</label>
+                <input id="form_user_doc" type="text" placeholder="123456789-0">
+            </div>
+
+            <div class="flex flex-col">
+                <label for="form_user_bloodtype">Grupo de Sangre</label>
+                <select id="form_user_bloodtype">
+                    @for(grupo of grupo_sangre(); track grupo)
+                    {
+                        <option [value]="grupo">{{grupo}}</option>
+                    }
+                </select>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

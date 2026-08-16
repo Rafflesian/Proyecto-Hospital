@@ -15,6 +15,19 @@ class CPersona extends ResourceController
         $this->pPersona = new Persona();
     }
 
+    public function get_persona(int $id)
+    {
+        if(!is_numeric($id))
+            return $this->respond(null, 404);
+
+        $persona = $this->pPersona->find($id);
+
+        if(empty($persona))
+            return $this->respond(null, 404);
+
+        return $this->respond($persona, 200);
+    }
+
     public function get_personas()
     {
         $personas = $this->pPersona->findAll();

@@ -17,4 +17,8 @@ export class PersonaService {
   getPersonas(): Observable<Persona[]> {
     return this.http.get<Persona[]>(this.API_URL);
   }
+
+  getPersona(id: number): Observable<Persona> {
+    return this.http.get<Persona>(`${this.API_URL}/${id}`);
+  }
 }

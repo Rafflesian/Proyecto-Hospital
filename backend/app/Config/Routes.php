@@ -6,6 +6,7 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 
 /** Personas */
+$routes->get('api/personas/(:num)', 'CPersona::get_persona/$1');
 $routes->get('api/personas', 'CPersona::get_personas');
 $routes->put('api/personas', 'CPersona::insert_persona');
 

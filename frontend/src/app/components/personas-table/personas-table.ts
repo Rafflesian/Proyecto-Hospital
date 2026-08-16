@@ -1,10 +1,11 @@
-import { Component, inject, Input, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { type Persona } from "@dtypes/common";
 import { PersonaService } from '@services/persona';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-personas-table',
-  imports: [],
+  imports: [RouterLink],
   standalone: true,
   templateUrl: './personas-table.html',
   styleUrl: './personas-table.css',
