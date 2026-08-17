@@ -37,6 +37,12 @@
             <div class="flex flex-col">
                 <label for="form_user_phone">Teléfono/Celular*</label>
                 <input formControlName="telefono" class="rounded border-1 border-slate-900" id="form_user_phone" type="text" placeholder="Teléfono">
+                @if (form.controls.telefono.invalid && form.controls.telefono.touched)
+                {
+                    <span class="text-red-500">
+                        Ingresa un número válido.
+                    </span>
+                }
             </div>
 
             <div class="flex flex-col">

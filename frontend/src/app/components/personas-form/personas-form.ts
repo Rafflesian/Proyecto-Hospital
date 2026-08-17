@@ -25,7 +25,7 @@ export class PersonasForm implements OnInit
     tipo_documento: new FormControl<Tipo_Documento | null>(null, Validators.required),
     nro_documento: new FormControl<string | null>(null, Validators.required),
     nombres: new FormControl<string | null>(null, Validators.required),
-    telefono: new FormControl<string | null>(null, Validators.required),
+    telefono: new FormControl<string | null>(null, Validators.pattern(/^\+?[0-9\s()-]{7,20}$/)),
     email: new FormControl<string | null>(null, Validators.email),
     apellido_paterno: new FormControl<string | null>(null, Validators.required),
     apellido_materno: new FormControl<string | null>(null, Validators.required),
@@ -61,15 +61,19 @@ export class PersonasForm implements OnInit
     });
 
     this.form.controls.nombres.valueChanges.subscribe(value => {
-      this.form.controls.nombres.setValue(value?.trimStart() ?? '', { emitEvent: false });
+      this.form.controls.nombres.setValue(this.format_default(value ?? ''), { emitEvent: false });
     });
 
     this.form.controls.apellido_paterno.valueChanges.subscribe(value => {
-      this.form.controls.apellido_paterno.setValue(value?.trimStart() ?? '', { emitEvent: false });
+      this.form.controls.apellido_paterno.setValue(this.format_default(value ?? ''), { emitEvent: false });
     });
 
     this.form.controls.apellido_materno.valueChanges.subscribe(value => {
-      this.form.controls.apellido_materno.setValue(value?.trimStart() ?? '', { emitEvent: false });
+      this.form.controls.apellido_materno.setValue(this.format_default(value ?? ''), { emitEvent: false });
+    });
+
+    this.form.controls.direccion.valueChanges.subscribe(value => {
+      this.form.controls.direccion.setValue(this.format_default(value ?? ''), { emitEvent: false });
     });
 
     this.form.controls.email.valueChanges.subscribe(value => {
@@ -98,15 +102,16 @@ export class PersonasForm implements OnInit
     let cuerpo = rut.slice(0, -1);
 
     cuerpo = cuerpo.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-
     return `${cuerpo}-${dv}`;
   }
 
+  private format_default(value: string): string
+  {
+    return (value.charAt(0).toUpperCase() + value.slice(1)).trimStart();
+  }
   private format_phone(value: string): string
   {
-    return value
-    .replace(/[^\d+]/g, '')
-    .replace(/(?!^)\+/g, '');
+    return value.replace(/[^\d+]/g, '').replace(/(?!^)\+/g, '');
   }
 
   send_form()
