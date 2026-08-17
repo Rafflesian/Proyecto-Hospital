@@ -26,7 +26,7 @@ export class PersonasForm implements OnInit
     nro_documento: new FormControl<string | null>(null, Validators.required),
     nombres: new FormControl<string | null>(null, Validators.required),
     telefono: new FormControl<string | null>(null, Validators.required),
-    email: new FormControl<string | null>(null),
+    email: new FormControl<string | null>(null, Validators.email),
     apellido_paterno: new FormControl<string | null>(null, Validators.required),
     apellido_materno: new FormControl<string | null>(null, Validators.required),
     direccion: new FormControl<string | null>(null, Validators.required),
