@@ -153,8 +153,18 @@ class Persona extends Entity
         // Opcional
         $input['email'] = trim($input['email'] ?? null);
 
-        if($input['email'] == '')
+        if($input['email'] != '')
+        {
+            if(!filter_var($input['email'], FILTER_VALIDATE_EMAIL))
+            {
+                $error = 'Correo electrónico inválido';
+                return null;
+            }
+        }
+        else
+        {
             $input['email'] = null;
+        }
 
         // Asignación
         foreach($input as $key => $value)

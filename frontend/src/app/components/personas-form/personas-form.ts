@@ -57,11 +57,23 @@ export class PersonasForm implements OnInit
     this.form.controls.tipo_documento.setValue(TIPO_DOCUMENTO_VALUES[0], { emitEvent: false });
 
     this.form.controls.nro_documento.valueChanges.subscribe(value => {
-      const clean = this.format_rut(value ?? '');
+      this.form.controls.nro_documento.setValue(this.format_rut(value ?? ''), { emitEvent: false });
+    });
 
-      this.form.controls.nro_documento.setValue(clean, {
-        emitEvent: false
-      });
+    this.form.controls.nombres.valueChanges.subscribe(value => {
+      this.form.controls.nombres.setValue(value?.trimStart() ?? '', { emitEvent: false });
+    });
+
+    this.form.controls.apellido_paterno.valueChanges.subscribe(value => {
+      this.form.controls.apellido_paterno.setValue(value?.trimStart() ?? '', { emitEvent: false });
+    });
+
+    this.form.controls.apellido_materno.valueChanges.subscribe(value => {
+      this.form.controls.apellido_materno.setValue(value?.trimStart() ?? '', { emitEvent: false });
+    });
+
+    this.form.controls.email.valueChanges.subscribe(value => {
+      this.form.controls.email.setValue(value?.trimStart() ?? '', { emitEvent: false });
     });
 
     this.form.controls.telefono.valueChanges.subscribe(value => {
@@ -95,12 +107,6 @@ export class PersonasForm implements OnInit
     return value
     .replace(/[^\d+]/g, '')
     .replace(/(?!^)\+/g, '');
-  }
-
-  private format_default(value: string): string
-  {
-    value = value.trimEnd();
-    return value;
   }
 
   send_form()
@@ -152,9 +158,11 @@ export class PersonasForm implements OnInit
     {
       this.personaService.updatePersona(data).subscribe({
         next: (persona) => {
+          alert('Paciente actualizado');
           console.log('Paciente actualizado: ', persona);
         },
         error: (error) => {
+          alert('Error al actualizar paciente');
           console.log('Error al actualizar paciente: ', error);
         }
       });
@@ -162,15 +170,19 @@ export class PersonasForm implements OnInit
     else
     {
       this.personaService.crearPersona(data).subscribe({
-        next: (persona_result) => {
+        next: (persona_result) =>
+        {
           if(persona_result.success)
           {
-            console.log('Persona creada: ', persona_result);
             this.persona_id.set(persona_result.data.id as number);
             this.persona.set(persona_result.data);
+
+            alert("Paciente registrado");
           }
         },
         error: (error) => {
+
+          alert("Error al registrar paciente");
           console.log('Error al crear persona: ', error);
         }
       });

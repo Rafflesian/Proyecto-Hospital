@@ -89,7 +89,8 @@ export class PersonasInforme implements OnInit
         // @ts-ignore
         this.persona.set({ nombres: informe_result.nombres });
       },
-      error: (error) =>{
+      error: (error) =>
+      {
         console.error('Error al obtener persona:', error);
         this.router.navigate(['/personas']);
       }
@@ -107,7 +108,8 @@ export class PersonasInforme implements OnInit
           id_emisor: persona_result.id as number
         });
       },
-      error: (error) =>{
+      error: (error) =>
+      {
         console.error('Error al obtener persona:', error);
         this.router.navigate(['/personas']);
       }
@@ -132,9 +134,7 @@ export class PersonasInforme implements OnInit
   private send_data(data: Informe)
   {
     if(this.informe_id() != null)
-    {
-      const editing_informe = data.id as number;
-      
+    { 
       if(data.id != this.informe_id())
         return;
 
@@ -156,9 +156,13 @@ export class PersonasInforme implements OnInit
           {
             console.log('Informe creado: ', informe);
             this.informe_id.set(informe.data.id as number);
+
+            alert("Informe creado");
           }
         },
-        error: (error) => {
+        error: (error) =>
+        {
+          alert("Error al crear informe");
           console.log('Error al crear informe: ', error);
         }
       });
