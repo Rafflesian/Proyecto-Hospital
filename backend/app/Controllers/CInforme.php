@@ -3,18 +3,22 @@
 namespace App\Controllers;
 
 use App\Models\Informe as InformeModel;
+use App\Models\Persona as PersonaModel;
 use App\Entities\Informe as InformeEntity;
+
 use CodeIgniter\RESTful\ResourceController;
 use Exception;
 
 class CInforme extends ResourceController
 {
     protected InformeModel $pInforme;
+    protected PersonaModel $pPersona;
     protected InformeEntity $eInforme;
 
     public function __construct()
     {
         $this->pInforme = new InformeModel();
+        $this->pPersona = new PersonaModel();
         $this->eInforme = new InformeEntity();
     }
 
@@ -35,6 +39,11 @@ class CInforme extends ResourceController
     public function get_informe_persona(int $persona_id)
     {
         if(!is_numeric($persona_id))
+            return $this->respond(null, 404);
+
+        $persona = $this->pPersona->find($persona_id);
+
+        if(empty($persona))
             return $this->respond(null, 404);
 
         $informes = $this->pInforme->where('id_paciente', $persona_id)->findAll();
@@ -64,13 +73,12 @@ class CInforme extends ResourceController
                 throw new Exception('Error en la transacción ('. $error . ')');
             }
             
+            $data['id'] = $informe_id;
             $db->transCommit();
 
             return $this->respond([
                 'success' => true,
-                'data' => [
-                    $this->pInforme,
-                ]
+                'data' => $data,
             ], 201);
         }
         catch(\Throwable $e)
@@ -110,9 +118,7 @@ class CInforme extends ResourceController
 
             return $this->respond([
                 'success' => true,
-                'data' => [
-                    $data
-                ]
+                'data' => $data
             ], 201);
         }
         catch(\Throwable $e)

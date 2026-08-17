@@ -62,12 +62,11 @@ class CPersona extends ResourceController
             }
 
             $db->transCommit();
+            $data['id'] = $persona_id;
 
             return $this->respond([
                 'success' => true,
-                'data' => [
-                    $this->pPersona,
-                ]
+                'data' => $data
             ], 201);
         }
         catch(\Throwable $e)

@@ -77,7 +77,7 @@
                 </button>
             }
 
-            <button [disabled]="form.invalid" type="submit" class="rounded bg-green-500 hover:bg-green-600 disabled:disabled disabled:bg-green-700 p-2">
+            <button [disabled]="form.invalid || form.controls.status.value !== 'En Proceso'" type="submit" class="rounded bg-green-500 hover:bg-green-600 disabled:disabled disabled:bg-green-700 p-2">
                 {{informe_id() != null ? 'Editar Informe' : 'Crear Informe'}}
             </button>
 

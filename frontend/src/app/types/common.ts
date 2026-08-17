@@ -48,7 +48,7 @@ export const CASE_STATUS_VALUES = Object.values(CASE_STATUS);
 
 export type ResultPut<T> = 
 {
-    result: boolean,
+    success: boolean,
     data: T;
 }
 

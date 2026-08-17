@@ -152,7 +152,7 @@ export class PersonasInforme implements OnInit
       this.informeService.crearInforme(data).subscribe({
         next: (informe) => {
 
-          if(informe.result)
+          if(informe.success)
           {
             console.log('Informe creado: ', informe);
             this.informe_id.set(informe.data.id as number);

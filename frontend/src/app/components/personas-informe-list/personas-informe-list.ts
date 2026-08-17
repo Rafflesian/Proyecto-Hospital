@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { InformeService } from '@app/services/informe';
 import { Informe } from '@dtypes/common';
 
@@ -14,6 +14,7 @@ export class PersonasInformeList implements OnInit
 {
   private informeService = inject(InformeService);
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
 
   persona_id = signal<number | null>(null);
   informe_list = signal<Informe[]>([]);
@@ -39,7 +40,8 @@ export class PersonasInformeList implements OnInit
       },
       error: (error) => 
       {
-        console.log(`Error al obtener informes: ${error}`);
+        console.log(`Error al obtener informes`);
+        this.router.navigate(['/personas']);
       }
     })
   }

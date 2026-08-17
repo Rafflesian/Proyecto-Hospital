@@ -58,7 +58,6 @@ export class PersonasForm implements OnInit
 
     this.form.controls.nro_documento.valueChanges.subscribe(value => {
       const clean = this.format_rut(value ?? '');
-      console.log(value);
 
       this.form.controls.nro_documento.setValue(clean, {
         emitEvent: false
@@ -114,8 +113,6 @@ export class PersonasForm implements OnInit
     }
 
     const input_data = this.form.getRawValue() as Persona;
-
-    console.log("Send")
     this.send_data(input_data);
   }
 
@@ -134,6 +131,8 @@ export class PersonasForm implements OnInit
           apellido_paterno: persona_result.apellido_paterno,
           apellido_materno: persona_result.apellido_materno,
           email: persona_result.email,
+          telefono: persona_result.telefono,
+          direccion: persona_result.direccion,
           g_sangre: persona_result.g_sangre,
           sexo: persona_result.sexo,
           nacionalidad: persona_result.nacionalidad
@@ -153,7 +152,7 @@ export class PersonasForm implements OnInit
     {
       this.personaService.updatePersona(data).subscribe({
         next: (persona) => {
-          console.log('Paciente actualizada: ', persona);
+          console.log('Paciente actualizado: ', persona);
         },
         error: (error) => {
           console.log('Error al actualizar paciente: ', error);
@@ -164,9 +163,10 @@ export class PersonasForm implements OnInit
     {
       this.personaService.crearPersona(data).subscribe({
         next: (persona_result) => {
-          if(persona_result.result)
+          if(persona_result.success)
           {
             console.log('Persona creada: ', persona_result);
+            this.persona_id.set(persona_result.data.id as number);
             this.persona.set(persona_result.data);
           }
         },

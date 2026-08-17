@@ -33,7 +33,7 @@
                 @empty 
                 {
                     <tr>
-                        <td colspan="2">No hay informes para este paciente</td>
+                        <td colspan="4">No hay informes para este paciente</td>
                     </tr>
                 }
     
@@ -41,11 +41,13 @@
     
         </table>
 
-        <div class="flex justify-center">
+        <div class="flex justify-center space-x-8">
             
             <button [routerLink]="['/personas']" type="button" class="bg-gray-600 hover:bg-gray-500 rounded p-2">
                 Volver a pacientes
             </button>
+
+            <button [routerLink]="['/personas/informe/nuevo', persona_id()]" class="bg-yellow-500 hover:bg-yellow-600 rounded p-2">Generar Informe</button>
 
         </div>
     </div>

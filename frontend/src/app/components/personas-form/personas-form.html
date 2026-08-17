@@ -87,7 +87,7 @@
                 <select formControlName="tipo_documento" id="form_user_doc_type">
                     @for(doc of tipo_documento(); track doc)
                     {
-                        <option [value]="doc">{{doc}}</option>
+                        <option [value]="doc" [disabled]="!doc.startsWith('RUN')">{{doc}}</option>
                     }
                 </select>
             </div>
@@ -110,7 +110,7 @@
             </button>
 
         </div>
-        
+
     </form>
 
 </div>
