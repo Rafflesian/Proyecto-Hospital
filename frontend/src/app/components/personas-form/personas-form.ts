@@ -109,6 +109,7 @@ export class PersonasForm implements OnInit
   {
     return (value.charAt(0).toUpperCase() + value.slice(1)).trimStart();
   }
+  
   private format_phone(value: string): string
   {
     return value.replace(/[^\d+]/g, '').replace(/(?!^)\+/g, '');

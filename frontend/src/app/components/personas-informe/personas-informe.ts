@@ -45,6 +45,34 @@ export class PersonasInforme implements OnInit
     const id = this.route.snapshot.paramMap.get('informe_id');
     const persona_id = this.route.snapshot.paramMap.get('persona_id');
 
+    this.form.controls.title.valueChanges.subscribe(value => {
+      this.form.controls.title.setValue(this.format_default(value ?? ''), { emitEvent: false });
+    });
+
+    this.form.controls.motivo.valueChanges.subscribe(value => {
+      this.form.controls.motivo.setValue(this.format_default(value ?? ''), { emitEvent: false });
+    });
+
+    this.form.controls.hallazgos.valueChanges.subscribe(value => {
+      this.form.controls.hallazgos.setValue(this.format_default(value ?? ''), { emitEvent: false });
+    });
+
+    this.form.controls.diagnosis.valueChanges.subscribe(value => {
+      this.form.controls.diagnosis.setValue(this.format_default(value ?? ''), { emitEvent: false });
+    });
+
+    this.form.controls.tratamiento.valueChanges.subscribe(value => {
+      this.form.controls.tratamiento.setValue(this.format_default(value ?? ''), { emitEvent: false });
+    });
+    
+    this.form.controls.recomendaciones.valueChanges.subscribe(value => {
+      this.form.controls.recomendaciones.setValue(this.format_default(value ?? ''), { emitEvent: false });
+    });
+
+    this.form.controls.observaciones.valueChanges.subscribe(value => {
+      this.form.controls.observaciones.setValue(this.format_default(value ?? ''), { emitEvent: false });
+    });
+
     if(id !== null)
     {
       this.informe_id.set(Number(id));
@@ -129,6 +157,11 @@ export class PersonasInforme implements OnInit
 
     console.log("Send")
     this.send_data(input_data);
+  }
+
+  private format_default(value: string): string
+  {
+    return (value.charAt(0).toUpperCase() + value.slice(1)).trimStart();
   }
 
   private send_data(data: Informe)
