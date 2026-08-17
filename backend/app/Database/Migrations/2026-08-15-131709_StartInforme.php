@@ -52,12 +52,6 @@ class StartInforme extends Migration
             'status' => [
                 'type' => 'ENUM',
                 'constraint' => array_column(StatusTypes::cases(), 'value')
-            ],
-            'created_at' => [
-                'type' => 'DATETIME'
-            ],
-            'updated_at'=> [
-                'type' => 'DATETIME'
             ]
         ]);
 
